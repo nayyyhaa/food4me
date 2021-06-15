@@ -30,6 +30,7 @@ function App() {
     const response = await fetch(URL);
     const data = await response.json();
     setRecipes(data.hits);
+    console.log(data.hits);
   }
 
 
@@ -40,7 +41,7 @@ function App() {
           
           <Switch>
             <Route path="/" exact component={Home}></Route>
-            <Route path="/searchRecipes" render={(props) => <SearchRecipes searchRecipes={searchRecipes} search={search} recipes={recipes} getSearch={getSearch} />}></Route>
+            <Route path="/searchRecipes" render={(props) => <SearchRecipes searchRecipes={searchRecipes} fSearch={fSearch} search={search} recipes={recipes} getSearch={getSearch} />}></Route>
             <Route path="/about" component={About}></Route>
           </Switch>
       </Router>
