@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import Recipes from './components/Recipes';
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
-
+import Nav from './components/Nav';
+import SearchRecipes from './components/SearchRecipes';
+import About from './components/About';
 function App() {
   
   let [recipes,setRecipes] = useState([]);
@@ -13,7 +15,6 @@ function App() {
 
   const searchRecipes = (e) => {
     setSearch(e.target.value);
-    console.log(search,e.target.value)
   }
 
   const getSearch = (e) => {
@@ -27,27 +28,16 @@ function App() {
   const getRecipes = async () => {
     const response = await fetch(URL);
     const data = await response.json();
-    console.log(data.hits);
     setRecipes(data.hits);
   }
 
   return (
     <div className="App">
-      <form onSubmit={getSearch}>
-        <input className="search-input" type="text" value={search} onChange={searchRecipes}/>
-        <button className="search-btn" type="submit">Search</button>
-      </form>
-      <div className="recipes">
-        {
-          recipes.map(recipe => (
-            <Recipes key={recipe.recipe.label}
-            title={recipe.recipe.label}
-            cuisineType={recipe.recipe.cuisineType}
-            image={recipe.recipe.image}
-            ingredients={recipe.recipe.ingredientLines}/>
-          ))
-        }
-      </div>
+      <Router>
+        <Nav/>
+        <Route path="/searchRecipes" render={(props) => <SearchRecipes searchRecipes={searchRecipes} search={search} recipes={recipes} getSearch={getSearch} />}></Route>
+        <Route path="/about" component={About}></Route>
+      </Router>
     </div>
   );
 }
