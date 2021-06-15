@@ -8,9 +8,11 @@ const Nav = () => {
         textDecoration: 'none'
     };
     return (
-    <div class="navDiv">
+    <div className="navDiv">
         <nav>
-            <h1>Food4me</h1>
+            <Link style={navStyle} to="/">
+                <h1>Food4me</h1>
+            </Link>
             <ul>
                 <Link style={navStyle} to="/searchRecipes">
                     <li>Search Recipes</li>

@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
 import Nav from './components/Nav';
 import SearchRecipes from './components/SearchRecipes';
+import Home from './components/Home';
 import About from './components/About';
 function App() {
   
@@ -31,12 +32,17 @@ function App() {
     setRecipes(data.hits);
   }
 
+
   return (
     <div className="App">
       <Router>
-        <Nav/>
-        <Route path="/searchRecipes" render={(props) => <SearchRecipes searchRecipes={searchRecipes} search={search} recipes={recipes} getSearch={getSearch} />}></Route>
-        <Route path="/about" component={About}></Route>
+          <Nav/>
+          
+          <Switch>
+            <Route path="/" exact component={Home}></Route>
+            <Route path="/searchRecipes" render={(props) => <SearchRecipes searchRecipes={searchRecipes} search={search} recipes={recipes} getSearch={getSearch} />}></Route>
+            <Route path="/about" component={About}></Route>
+          </Switch>
       </Router>
     </div>
   );
